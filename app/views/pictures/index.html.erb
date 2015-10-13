@@ -1,0 +1,12 @@
+<table class="table">
+	<% @pictures.each do |picture| %>
+		<tr>
+			<td><%= picture.image %></td>
+			<td><a href="/pictures/addToProduct/<%= picture.id %>"><%= image_tag(picture.image_url.to_s, size: "100x100") %></a></td>
+		</tr>
+	<% end %>
+</table>
+
+
+
+<%= link_to 'Back', new_product_path %>

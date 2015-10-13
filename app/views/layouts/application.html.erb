@@ -1,14 +1,81 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>EiscafeUndPizzeria</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
+	<title>Eiscafé und Pizzeria</title>
+	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+	<% if request.ssl? %>
+		<%= stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css' %>
+		<%= javascript_include_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js' %>
+	<% else %> 
+		<%= stylesheet_link_tag 'http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css' %>
+		<%= javascript_include_tag 'http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js' %>
+	<% end %>
+	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+
+	<%= csrf_meta_tags %>
+	<style>
+		body { padding-top: 70px; }
+	</style>
 </head>
 <body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/">Eiscafé und Pizzeria</a>
+			</div>
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+					<li><%= link_to "Browse Products", products_path %></li>
+				</ul>
+				<form class="navbar-form navbar-left" role="search">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Search">
+					</div>
+					<button type="submit" class="btn btn-default">Submit</button>
+				</form>
+				<p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">Mark Otto</a></p>
+				<% if false %>
+					<button type="button" class="btn btn-default navbar-btn">Sign in</button>
+					<h1 class="cart-text"><%= render 'layouts/cart_text' %></h1>
+				<% end %>
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-6">
+				<h1><%= link_to "Eiscafé und Pizzeria", root_path %></h1>
+			</div>
+			<div class="col-xs-6 text-right">
+				<h1 class="cart-text"><%= render 'layouts/cart_text' %></h1>
+			</div>
+		</div>
 
-<%= yield %>
+		<%= link_to "Orders", orders_path %>
+
+		<% if customer_signed_in? %>
+			<%= link_to "Sign Out", destroy_customer_session_path, method: :delete %>
+		<% else %>
+		<% if false %>
+			<%= link_to "Sign In", new_customer_session_path %>
+			<%= link_to "Sign Up", new_customer_registration_path %>
+		<% end %>
+		<% end %>
+
+		<p class="notice"><%= notice %></p>
+		<p class="alert"><%= alert %></p>
+
+		<hr/>
+		<%= yield %>
+	</div>
 
 </body>
 </html>

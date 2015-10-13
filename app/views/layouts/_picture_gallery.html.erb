@@ -1,0 +1,8 @@
+<table>
+	<% @pictures.each do |picture| %>
+		<tr>
+			<td><%= picture.image %></td>
+			<td><%= image_tag(picture.image_url.to_s, size: "100x100") %></td>
+		</tr>
+	<% end %>
+</table>

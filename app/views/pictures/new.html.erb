@@ -1,0 +1,10 @@
+<%= form_for :picture, html: { class: "form-horizontal", role: "form", multipart: true }, url: pictures_path do |f| %>
+	<p>
+	<%= f.file_field :image, class: "form-control" %>
+	</p>
+	<div class="actions form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<%= f.submit %>
+		</div>
+	</div>
+<% end %>

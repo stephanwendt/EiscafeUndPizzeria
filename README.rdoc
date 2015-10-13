@@ -12,6 +12,13 @@ Things you may want to cover:
 * Configuration
 
 * Database creation
+bin/rails generate devise Customer forename:string surname:string street:string city:string state:string zipcode:string country:string
+bin/rails generate devise:install
+bin/rails generate model Order order_date:datetime 'total:decimal{12,2}' customer:references
+bin/rails generate model OrderItem 'unit_price:decimal{12,2}' quantity:integer 'total_price:decimal{12,2}' comment:text order:references product:references
+bin/rails generate model Product name:string description:text available:integer 'price:decimal{12,2}'
+bin/rails generate model Picture image:string
+
 
 * Database initialization
 

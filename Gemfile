@@ -45,3 +45,9 @@ group :development do
   gem 'spring'
 end
 
+gem 'carrierwave'
+gem 'a9s_swift'
+gem 'rails_12factor'
+
+gem 'bootstrap-sass'
+gem 'devise'

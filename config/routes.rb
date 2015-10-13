@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
+	devise_for :customers
+  #devise_for :users, path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' }
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'products#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -13,6 +15,16 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
+	resources :products
+	resources :pictures
+	get '/pictures/addToProduct/:id' => 'pictures#addToProduct'
+	resources :orders
+
+
+	get 'shopping_cart' => 'shopping_cart#index'
+	get 'shopping_cart/clear'
+	get 'shopping_cart/order'
+	get 'shopping_cart/:id' => 'shopping_cart#add'
 
   # Example resource route with options:
   #   resources :products do

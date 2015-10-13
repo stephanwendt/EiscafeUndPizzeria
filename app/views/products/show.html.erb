@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @product.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @product.description %>
+</p>
+
+<p>
+  <strong>Available:</strong>
+  <%= @product.available %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @product.price %>
+</p>
+
+<p>
+<table class="table">
+	<% @product.pictures.each do |picture| %>
+		<tr>
+			<td><%= picture.image %></td>
+			<td><%= image_tag(picture.image_url.to_s, size: "100x100") %></td>
+		</tr>
+	<% end %>
+</table>
+</p>
+
+<p>
+<%= link_to 'Add Picture', pictures_path %>
+</p>
+
+<a href="/shopping_cart/<%= @product.id %>">Add to cart</a> |
+<%= link_to 'Edit', edit_product_path(@product) %> |
+<%= link_to 'Back', products_path %>
