@@ -1,23 +1,33 @@
 class ShoppingCartController < ApplicationController
+	before_action :authenticate_user!, only: [:order]
+	before_action :set_shopping_cart#, only: [:show, :edit, :update, :destroy]
+
 	def add
 		id = params[:id]
 
-		if session[:cart] then
-			cart = session[:cart]
+		if @cart[id] then
+			@cart[id] += 1
 		else
-			session[:cart] = {}
-			cart = session[:cart]
+			@cart[id] = 1
 		end
 
-		if cart[id] then
-			cart[id] += 1
-		else
-			cart[id] = 1
+		session[:cart] = @cart
+	end
+
+	def update
+		id = params[:id]
+
+		quantity = params[:quantity].to_i
+		if quantity then
+			@cart[id] = quantity
+			session[:cart] = @cart
 		end
+	end
 
-		session[:cart] = cart
+	def remove
+		id = params[:id]
 
-		redirect_to :action => :index
+		session[:cart] = @cart.except!(id)
 	end
 
 	def order
@@ -33,7 +43,12 @@ class ShoppingCartController < ApplicationController
 				end
 				current_order.order_date = current_order.created_at
 				current_order.total = total
-				current_order.save
+				if current_order.save then
+					OrderMailer.confirmation_mail_to_customer(current_customer, current_order).deliver_later
+					OrderMailer.confirmation_mail_to_admins(current_customer, current_order).deliver_later
+				else
+					##TODO
+				end
 			end
 		end
 
@@ -41,15 +56,18 @@ class ShoppingCartController < ApplicationController
 	end
 
 	def clear
-		session[:cart] = nil
+		@cart = {}
+		session[:cart] = @cart
 		redirect_to :action => :index
 	end
 
 	def index
-		if session[:cart] then
-			@cart = session[:cart]
-		else
-			@cart = {}
-		end
+	end
+
+
+	private
+	def set_shopping_cart
+		@cart = session[:cart]
+		@cart ||= {}
 	end
 end

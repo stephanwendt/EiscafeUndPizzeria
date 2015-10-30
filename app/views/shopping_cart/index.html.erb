@@ -1,3 +1,9 @@
+<div class="shopping-cart">
+	  <%= render "shopping_cart" %>
+</div>
+
+
+<% if false %>
 <h1>Your Cart</h1>
 
 <%= link_to 'Empty your cart', shopping_cart_clear_path %>
@@ -17,10 +23,10 @@
 	<% end %>
 	<p>Total: <%= number_to_currency total %></p>
 </ul>
+<% end %>
 
 
-	<%= link_to "Kostenpflichtig bestellen", shopping_cart_order_path %>
-	<% if false %>
+<% if false %>
 <% if customer_signed_in? %>
 	<%= link_to "Kostenpflichtig bestellen", shopping_cart_order_path %>
 <% else %>

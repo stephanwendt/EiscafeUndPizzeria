@@ -1,3 +1,10 @@
-<% if false %>
-<%= link_to pluralize(current_order.order_items.size, "Item") + " in Cart ( #{number_to_currency current_order.subtotal} )", cart_path, class: "btn btn-link" %>
+<% total = 0 %>
+<% total_quantity = 0 %>
+<% shopping_cart = session[:cart] %>
+<% shopping_cart ||= {} %>
+<% shopping_cart.each do | id, quantity | %>
+	<% product = Product.find_by_id(id) %>
+	<% total += quantity * product.price %>
+	<% total_quantity += quantity %>
 <% end %>
+<%= link_to pluralize(total_quantity, "Item") + " in Cart ( #{number_to_currency total} )", shopping_cart_path, class: "btn btn-success" %>

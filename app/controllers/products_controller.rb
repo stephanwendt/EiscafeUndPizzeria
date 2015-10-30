@@ -1,8 +1,8 @@
 class ProductsController < ApplicationController
-	protect_from_forgery with: :null_session
+	before_action :authenticate_admin!, except: [:index, :show]
 	before_action :set_product, only: [:show, :edit, :update, :destroy]
-	http_basic_authenticate_with name: "dhh", password: "secret",
-		except: [:index, :show]
+	#http_basic_authenticate_with name: "dhh", password: "secret",
+		#except: [:index, :show]
 
 	# GET /products
 	def index

@@ -1,5 +1,5 @@
 class PicturesController < ApplicationController
-	protect_from_forgery with: :null_session
+	before_action :authenticate_admin!, except: [:index, :show]
 
 	def index
 		@pictures = Picture.all
@@ -16,7 +16,8 @@ class PicturesController < ApplicationController
 	def create
 		@picture = Picture.new(picture_params)
 		if @picture.save
-			redirect_to @picture
+			redirect_to :action => :index
+			#redirect_to @picture
 		else
 			render 'new'
 		end

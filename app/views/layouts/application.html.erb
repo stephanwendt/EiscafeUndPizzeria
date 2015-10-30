@@ -1,23 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Eiscafé und Pizzeria</title>
-	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-	<% if request.ssl? %>
-		<%= stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css' %>
-		<%= javascript_include_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js' %>
-	<% else %> 
-		<%= stylesheet_link_tag 'http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css' %>
-		<%= javascript_include_tag 'http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js' %>
+	<% if false %>
+		<% if request.ssl? %>
+			<%= stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css' %>
+			<%= javascript_include_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js' %>
+		<% else %> 
+			<%= stylesheet_link_tag 'http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css' %>
+			<%= javascript_include_tag 'http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js' %>
+		<% end %>
 	<% end %>
 	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
+	<%= javascript_include_tag 'https://js.stripe.com/v2/' %>
 
 	<%= csrf_meta_tags %>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 	<style>
 		body { padding-top: 70px; }
 	</style>
 </head>
 <body>
+	<% if false %>
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
@@ -32,50 +46,83 @@
 			</div>
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
 					<li><%= link_to "Browse Products", products_path %></li>
+					<li><%= link_to "Contact", new_contact_message_path %></li>
+					<% if admin_signed_in? %>
+						<li><%= link_to 'New Product', new_product_path %></li>
+						<li><%= link_to "Orders", orders_path %></li>
+					<% end %>
 				</ul>
 				<form class="navbar-form navbar-left" role="search">
 					<div class="form-group">
 						<input type="text" class="form-control" placeholder="Search">
+						<button type="submit" class="btn btn-default">Submit</button>
 					</div>
-					<button type="submit" class="btn btn-default">Submit</button>
 				</form>
-				<p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">Mark Otto</a></p>
-				<% if false %>
-					<button type="button" class="btn btn-default navbar-btn">Sign in</button>
-					<h1 class="cart-text"><%= render 'layouts/cart_text' %></h1>
+				<div class="btn-toolbar navbar-right" role="toolbar" aria-label="bt">
+				<% if customer_signed_in? %>
+					<div class="btn-group" role="group" aria-label="sign">
+						<%= link_to "Signed in as #{current_customer.forename} #{current_customer.surname}", edit_customer_registration_path, :class => "btn btn-success navbar-btn" %>
+						<%= link_to "Sign Out", destroy_customer_session_path, { :class => "btn btn-danger navbar-btn", :method => :delete } %>
+					</div>
+				<% else %>
+					<div class="btn-group" role="group" aria-label="sign">
+						<%= link_to "Sign In", new_customer_session_path, class: "btn btn-primary navbar-btn" %>
+						<%= link_to "Sign Up", new_customer_registration_path, class: "btn btn-primary navbar-btn" %>
+					</div>
 				<% end %>
+				<div class="btn-group" role="group" aria-label="cart">
+				<div id="cart-text" class="navbar-btn">
+				<%= render 'layouts/cart_text' %>
+				</div>
+				</div>
+				</div>
 			</div>
 		</div>
 	</nav>
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-6">
-				<h1><%= link_to "Eiscafé und Pizzeria", root_path %></h1>
+<% end %>
+	<%= nav_bar fixed: :top, brand: "Eiscafé und Pizzeria", responsive: true do %>
+		<%= menu_group do %>
+			<%= menu_item "Browse Products", products_path %>
+			<%= menu_item "Contact", new_contact_message_path %>
+			<% if admin_signed_in? %>
+				<%= menu_item "New Product", new_product_path %>
+				<%= menu_item "Orders", orders_path %>
+			<% end %>
+		<% end %>
+		<form class="navbar-form navbar-left" role="search">
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Search">
+				<button type="submit" class="btn btn-default">Submit</button>
 			</div>
-			<div class="col-xs-6 text-right">
-				<h1 class="cart-text"><%= render 'layouts/cart_text' %></h1>
+		</form>
+		<div class="btn-toolbar navbar-right" role="toolbar" aria-label="bt">
+			<% if customer_signed_in? %>
+				<div class="btn-group" role="group" aria-label="sign">
+					<%= link_to "Signed in as #{current_customer.forename} #{current_customer.surname}", edit_customer_registration_path, :class => "btn btn-success navbar-btn" %>
+					<%= link_to "Sign Out", destroy_customer_session_path, { :class => "btn btn-danger navbar-btn", :method => :delete } %>
+				</div>
+			<% else %>
+				<div class="btn-group" role="group" aria-label="sign">
+					<%= link_to "Sign In", new_customer_session_path, class: "btn btn-primary navbar-btn" %>
+					<%= link_to "Sign Up", new_customer_registration_path, class: "btn btn-primary navbar-btn" %>
+				</div>
+			<% end %>
+			<div class="btn-group" role="group" aria-label="cart">
+				<div id="cart-text" class="navbar-btn">
+					<%= render 'layouts/cart_text' %>
+				</div>
 			</div>
 		</div>
-
-		<%= link_to "Orders", orders_path %>
-
-		<% if customer_signed_in? %>
-			<%= link_to "Sign Out", destroy_customer_session_path, method: :delete %>
-		<% else %>
-		<% if false %>
-			<%= link_to "Sign In", new_customer_session_path %>
-			<%= link_to "Sign Up", new_customer_registration_path %>
-		<% end %>
-		<% end %>
-
+	<% end %>
+	<div class="container">
+		<%= bootstrap_flash(class: "notice") %>
+		<%= bootstrap_flash(class: "alert") %>
 		<p class="notice"><%= notice %></p>
 		<p class="alert"><%= alert %></p>
 
 		<hr/>
 		<%= yield %>
 	</div>
-
 </body>
 </html>

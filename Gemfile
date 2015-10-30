@@ -49,5 +49,8 @@ gem 'carrierwave'
 gem 'a9s_swift'
 gem 'rails_12factor'
 
-gem 'bootstrap-sass'
+#gem 'bootstrap-sass'
+gem 'twitter-bootstrap-rails'
 gem 'devise'
+gem 'letter_opener', :group => :development
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]

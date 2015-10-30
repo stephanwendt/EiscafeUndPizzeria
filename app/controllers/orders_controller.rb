@@ -1,7 +1,8 @@
 class OrdersController < ApplicationController
-	protect_from_forgery with: :null_session
 	before_action :set_order, only: [:show, :edit, :update, :destroy]
-	http_basic_authenticate_with name: "dhh", password: "secret"
+	before_action :authenticate_admin!
+	#before_action :authenticate_user!, only: [:order]
+	#http_basic_authenticate_with name: "dhh", password: "secret"
 
 	# GET /orders
 	def index

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+	devise_for :admins, path_names: { sign_in: 'login', sign_out: 'logout' }
 	devise_for :customers
   #devise_for :users, path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' }
   # The priority is based upon order of creation: first created -> highest priority.
@@ -20,11 +21,15 @@ Rails.application.routes.draw do
 	get '/pictures/addToProduct/:id' => 'pictures#addToProduct'
 	resources :orders
 
+	resources :contact_messages
 
 	get 'shopping_cart' => 'shopping_cart#index'
 	get 'shopping_cart/clear'
 	get 'shopping_cart/order'
-	get 'shopping_cart/:id' => 'shopping_cart#add'
+	get 'shopping_cart/remove'
+	get 'shopping_cart/update'
+	get 'shopping_cart/add'
+	#get 'shopping_cart/add/:id' => 'shopping_cart#add'
 
   # Example resource route with options:
   #   resources :products do
