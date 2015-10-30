@@ -1,0 +1,19 @@
+<% if @cart.size == 0 %>
+	<p class="text-center">
+	There are no items in your shopping cart.  Please <%= link_to "go back", products_path %> and add some items to your cart.
+	</p>
+<% else %>
+	<h1>Your Cart</h1>
+	<%= link_to 'Empty your cart', shopping_cart_clear_path %>
+	<% @cart.each do |id,quantity| %>
+		<%= render 'shopping_cart/cart_row', cart: @cart, product: Product.find_by_id(id), quantity: quantity %>
+	<% end %>
+	<% if customer_signed_in? %>
+		<%= link_to "Kostenpflichtig bestellen", shopping_cart_order_path, class: "btn btn-success"  %>
+	<% else %>
+		<div class="btn-group" role="group" aria-label="sign">
+			<%= link_to "Sign In to order", new_customer_session_path, class: "btn btn-primary" %>
+			<%= link_to "Sign Up to order", new_customer_registration_path, class: "btn btn-primary" %>
+		</div>
+	<% end %>
+<% end %>
