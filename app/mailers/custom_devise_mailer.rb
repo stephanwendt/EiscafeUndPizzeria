@@ -5,6 +5,7 @@ class CustomDeviseMailer < Devise::Mailer
 
 	def confirmation_instructions(record, token, opts={})
 		#TODO Admin.pluck(:email)
+		mail to: Proc.new { Admin.pluck(:email) }, subject: "Hallo"
 		super
 	end
 end

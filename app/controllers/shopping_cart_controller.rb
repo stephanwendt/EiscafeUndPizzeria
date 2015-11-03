@@ -1,6 +1,6 @@
 class ShoppingCartController < ApplicationController
 	before_action :authenticate_user!, only: [:order]
-	before_action :set_shopping_cart#, only: [:show, :edit, :update, :destroy]
+	before_action :set_shopping_cart
 
 	def add
 		id = params[:id]
@@ -12,6 +12,7 @@ class ShoppingCartController < ApplicationController
 		end
 
 		session[:cart] = @cart
+		#flash.notice = "Product successfully added to cart!"
 	end
 
 	def update
@@ -21,6 +22,7 @@ class ShoppingCartController < ApplicationController
 		if quantity then
 			@cart[id] = quantity
 			session[:cart] = @cart
+			#flash.notice = "Product successfully added to cart!"
 		end
 	end
 

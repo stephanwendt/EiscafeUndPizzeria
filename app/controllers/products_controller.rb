@@ -35,6 +35,7 @@ class ProductsController < ApplicationController
 					@product.pictures << picture
 				end
 				@product.save
+				session[:newProductImages] = nil
 			end
 			redirect_to @product, notice: 'Product was successfully created.'
 		else

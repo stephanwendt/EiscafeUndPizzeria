@@ -50,7 +50,10 @@ gem 'a9s_swift'
 gem 'rails_12factor'
 
 #gem 'bootstrap-sass'
-gem 'twitter-bootstrap-rails'
+gem 'twitter-bootstrap-rails', '>= 3.2.1.rc1'
+#gem 'twitter-bootstrap-rails'
 gem 'devise'
 gem 'letter_opener', :group => :development
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+
+gem 'country_select'

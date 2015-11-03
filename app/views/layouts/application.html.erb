@@ -5,15 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Eiscafé und Pizzeria</title>
-	<% if false %>
-		<% if request.ssl? %>
-			<%= stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css' %>
-			<%= javascript_include_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js' %>
-		<% else %> 
-			<%= stylesheet_link_tag 'http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css' %>
-			<%= javascript_include_tag 'http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js' %>
-		<% end %>
-	<% end %>
 	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
 	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
@@ -31,6 +22,11 @@
 	</style>
 </head>
 <body>
+	<%= content_tag :a, "Modal", href: "#modal", class: 'btn', data: {toggle: 'modal'} %>
+	<%= modal_dialog id: "modal",
+		header: { show_close: true, dismiss: 'modal', title: 'Modal header' },
+		body:   { content: 'This is the body' },
+		footer: { content: content_tag(:button, 'Save', class: 'btn') } %>
 	<% if false %>
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
@@ -55,7 +51,7 @@
 				</ul>
 				<form class="navbar-form navbar-left" role="search">
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Search">
+						<input type="search" class="form-control" placeholder="Search">
 						<button type="submit" class="btn btn-default">Submit</button>
 					</div>
 				</form>
@@ -81,7 +77,7 @@
 		</div>
 	</nav>
 <% end %>
-	<%= nav_bar fixed: :top, brand: "Eiscafé und Pizzeria", responsive: true do %>
+	<%= nav_bar fixed: :top, brand: "Eiscafé und Pizzeria", responsive: true, fluid: true do %>
 		<%= menu_group do %>
 			<%= menu_item "Browse Products", products_path %>
 			<%= menu_item "Contact", new_contact_message_path %>
@@ -96,7 +92,7 @@
 				<button type="submit" class="btn btn-default">Submit</button>
 			</div>
 		</form>
-		<div class="btn-toolbar navbar-right" role="toolbar" aria-label="bt">
+		<div class="btn-toolbar pull-right" role="toolbar" aria-label="bt">
 			<% if customer_signed_in? %>
 				<div class="btn-group" role="group" aria-label="sign">
 					<%= link_to "Signed in as #{current_customer.forename} #{current_customer.surname}", edit_customer_registration_path, :class => "btn btn-success navbar-btn" %>
@@ -115,14 +111,16 @@
 			</div>
 		</div>
 	<% end %>
-	<div class="container">
+	<div class="container-fluid">
 		<%= bootstrap_flash(class: "notice") %>
 		<%= bootstrap_flash(class: "alert") %>
-		<p class="notice"><%= notice %></p>
-		<p class="alert"><%= alert %></p>
+		<% if false %>
+			<p class="notice"><%= notice %></p>
+			<p class="alert"><%= alert %></p>
+		<% end %>
 
 		<hr/>
-		<%= yield %>
 	</div>
+	<%= yield %>
 </body>
 </html>

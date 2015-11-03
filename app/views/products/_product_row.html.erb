@@ -1,6 +1,11 @@
+<% if false %>
 <div class="well">
 	<div class="row">
 		<div class="col-xs-8">
+			<% first_product_image = product.pictures.first %>
+			<% if first_product_image then %>
+				<td><%= image_tag(first_product_image.image_url.to_s, size: "100x100") %></td>
+			<% end %>
 			<h4><%= product.name %></h4>
 		</div>
 		<div class="col-xs-4">
@@ -12,23 +17,29 @@
 					<td><%= link_to 'Edit', edit_product_path(product) %></td>
 					<td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 				<% end %>
-				<% if false %>
-				<td><a href="/shopping_cart/<%= product.id %>">Add to cart</a></td>
-				<% end %>
 				<td><%= link_to "Add to cart", { :controller => "shopping_cart", :action => "add", :id => product.id}, remote: true, class: "btn btn-primary" %></td>
 				<h4 class="text-right">Unit Price: <span style="color: green"><%= number_to_currency product.price %></span></h4>
-<% if false %>
-			<%= form_for order_item, remote: true do |f| %>
-				<h4 class="text-right">Unit Price: <span style="color: green"><%= number_to_currency product.price %></span></h4>
-				<div class="input-group">
-					<%= f.number_field :quantity, value: 1, class: "form-control", min: 1 %>
-					<div class="input-group-btn">
-						<%= f.hidden_field :product_id, value: product.id %>
-						<%= f.submit "Add to Cart", class: "btn btn-primary" %>
-					</div>
-				</div>
-			<% end %>
+		</div>
+	</div>
+</div>
 <% end %>
+
+<div class="col-sm-6 col-md-3">
+	<div class="thumbnail">
+		<% first_product_image = product.pictures.first %>
+		<% if first_product_image then %>
+			<%= link_to image_tag(first_product_image.image_url.to_s), product %>
+		<% end %>
+		<div class="caption">
+			<h3><%= link_to product.name, product %></h3>
+			<p><%= product.description %></p>
+			<p>Available: <%= product.available %></p>
+			<h4 class="text-right">Unit Price: <span style="color: green"><%= number_to_currency product.price %></span></h4>
+			<% if admin_signed_in? %>
+				<%= link_to 'Edit', edit_product_path(product), class: "btn btn-danger" %>
+				<%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+			<% end %>
+			<%= link_to "Add to cart", { :controller => "shopping_cart", :action => "add", :id => product.id}, remote: true, class: "btn btn-primary" %>
 		</div>
 	</div>
 </div>

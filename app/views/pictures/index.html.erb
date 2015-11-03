@@ -1,11 +1,15 @@
-<table class="table">
+<div class="row">
 	<% @pictures.each do |picture| %>
-		<tr>
-			<td><%= picture.image %></td>
-			<td><a href="/pictures/addToProduct/<%= picture.id %>"><%= image_tag(picture.image_url.to_s, size: "100x100") %></a></td>
-		</tr>
+		<div class="col-sm-6 col-md-3">
+			<div class="thumbnail">
+				<a href="/pictures/addToProduct/<%= picture.id %>"><%= image_tag picture.image_url.to_s %></a>
+				<div class="caption">
+					<%= picture.image %>
+				</div>
+			</div>
+		</div>
 	<% end %>
-</table>
+</div>
 
 
 
