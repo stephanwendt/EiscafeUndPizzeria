@@ -1,10 +1,10 @@
-<% if @cart.size == 0 %>
+<% if @cart.size.zero? then %>
 	<p class="text-center">
 	There are no items in your shopping cart.  Please <%= link_to "go back", products_path %> and add some items to your cart.
 	</p>
 <% else %>
 	<h1>Your Cart</h1>
-	<%= link_to 'Empty your cart', shopping_cart_clear_path %>
+	<%= link_to 'Empty your cart', shopping_cart_clear_path, class: "btn btn-danger" %>
 	<% @cart.each do |id,quantity| %>
 		<%= render 'shopping_cart/cart_row', cart: @cart, product: Product.find_by_id(id), quantity: quantity %>
 	<% end %>

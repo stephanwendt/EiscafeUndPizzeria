@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-	before_action :authenticate_admin!, except: [:index, :show]
+	before_action :authenticate_admin!, except: [:index, :search, :show]
 	before_action :set_product, only: [:show, :edit, :update, :destroy]
 	#http_basic_authenticate_with name: "dhh", password: "secret",
 		#except: [:index, :show]
@@ -7,6 +7,10 @@ class ProductsController < ApplicationController
 	# GET /products
 	def index
 		@products = Product.all
+	end
+
+	def search
+		@products = Product.where("name LIKE ?", '%' + params[:search_keywords] + '%')
 	end
 
 	# GET /products/1

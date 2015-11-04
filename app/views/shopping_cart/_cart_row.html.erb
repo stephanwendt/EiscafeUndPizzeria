@@ -3,6 +3,10 @@
 	<div class="row">
 		<div class="col-xs-8">
 			<h4><%= product.name %></h4>
+			<% first_product_image = product.pictures.first %>
+			<% if first_product_image then %>
+					<%= link_to image_tag(first_product_image.image_url.to_s, class: "img-thumbnail", size: "70x70"), product %>
+			<% end %>
 		</div>
 		<div class="col-xs-4">
 
