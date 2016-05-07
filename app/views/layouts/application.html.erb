@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Eiscafé und Pizzeria</title>
 	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
@@ -87,7 +87,7 @@
 			<% end %>
 		<% end %>
 		<%= form_tag(products_search_path, method: :get, class: "navbar-form navbar-left form-group", role: "search") do %>
-			<%= text_field_tag :search_keywords, nil, class: "form-control" %>
+			<%= search_field_tag :search_keywords, nil, class: "form-control" %>
 			<%= submit_tag 'Search', class: "btn btn-default" %>
 		<% end %>
 		<div class="btn-toolbar pull-right" role="toolbar" aria-label="bt">
@@ -110,8 +110,7 @@
 		</div>
 	<% end %>
 	<div class="container-fluid">
-		<%= bootstrap_flash(class: "notice") %>
-		<%= bootstrap_flash(class: "alert") %>
+		<%= bootstrap_flash %>
 		<% if false %>
 			<p class="notice"><%= notice %></p>
 			<p class="alert"><%= alert %></p>
@@ -120,5 +119,9 @@
 		<hr/>
 	</div>
 	<%= yield %>
+
+	<footer>
+		<p>&copy; Stephan Wendt 2015</p>
+	</footer>
 </body>
 </html>

@@ -1,0 +1,22 @@
+<h1 class="text-center">Search results for <%= params[:search_keywords] %></h1>
+
+<div class="container-fluid">
+	<% if @products.size.zero? then %>
+		<p class="text-center">
+		No products found.
+		</p>
+	<% else %>
+		<p class="text-center">
+		<%= pluralize(@products.size, 'product') %> found.
+		</p>
+		<div class="row">
+			<% @products.each do |product| %>
+				<%= render "product_row", product: product %>
+			<% end %>
+		</div>
+		<br/>
+		<% if admin_signed_in? %>
+			<%= link_to 'New Product', new_product_path %>
+		<% end %>
+	<% end %>
+</div>

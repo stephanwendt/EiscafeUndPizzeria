@@ -1,4 +1,5 @@
-<%= form_for(@contact_message) do |f| %>
+<div class="container">
+<%= form_for(@contact_message, html: { class: "form-horizontal center", role: "form" }) do |f| %>
 	<% if @contact_message.errors.any? %>
 		<div id="error_explanation">
 			<h2><%= pluralize(@contact_message.errors.count, "error") %> prohibited this contact_message from being saved:</h2>
@@ -11,15 +12,15 @@
 		</div>
 	<% end %>
 
-	<div class="field">
-		<%= f.label :message %><br>
-		<%= f.text_area :message, class: "form-control" %>
+	<div class="field form-group">
+		<%= f.label :message, class: 'control-label' %><br>
+		<%= f.text_area :message, class: 'form-control' %>
 	</div>
 
 
 	<% if customer_signed_in? %>
 		<div class="actions">
-			<%= f.submit %>
+			<%= f.submit nil, class: "btn btn-primary" %>
 		</div>
 	<% else %>
 		<div class="btn-group" role="group" aria-label="sign">
@@ -28,3 +29,4 @@
 		</div>
 	<% end %>
 <% end %>
+</div>

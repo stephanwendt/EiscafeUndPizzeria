@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
 	#protect_from_forgery with: :exception
 	protect_from_forgery with: :null_session
 
+	before_action :set_locale
+
 	before_action :configure_permitted_parameters, if: :devise_controller?
 
 	protected
@@ -25,5 +27,10 @@ class ApplicationController < ActionController::Base
 		devise_parameter_sanitizer.for(:account_update) << :zipcode
 		devise_parameter_sanitizer.for(:account_update) << :country
 		devise_parameter_sanitizer.for(:account_update) << :telephone_number
+	end
+
+	private
+	def set_locale
+		I18n.locale = params[:locale] || I18n.default_locale
 	end
 end
