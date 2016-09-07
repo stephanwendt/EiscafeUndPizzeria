@@ -2,7 +2,8 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.4'
+#gem 'rails', '4.2.4'
+gem 'rails'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -51,17 +52,20 @@ end
 
 group :production do
 	gem 'pg'
-	#gem 'a9s_swift'
+	gem 'a9s_swift'
 	gem 'rails_12factor'
 end
 
 
 gem 'carrierwave'
+gem 'fog'
+gem 'figaro'
 
 #gem 'bootstrap-sass'
 gem 'twitter-bootstrap-rails', '>= 3.2.1.rc1'
 #gem 'twitter-bootstrap-rails'
 gem 'devise'
+##gem 'devise', '3.4.1'
 gem 'devise-i18n'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 

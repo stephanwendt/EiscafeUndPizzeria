@@ -4,8 +4,8 @@ class CustomDeviseMailer < Devise::Mailer
 	default template_path: 'devise/mailer' # to make sure that your mailer uses the devise views
 
 	def confirmation_instructions(record, token, opts={})
-		#TODO Admin.pluck(:email)
-		mail to: Proc.new { Admin.pluck(:email) }, subject: "Hallo"
+		@resource = record
+		mail to: Admin.pluck(:email), subject: "Hallo"
 		super
 	end
 end

@@ -22,61 +22,13 @@
 	</style>
 </head>
 <body>
+	<% if false %>
 	<%= content_tag :a, "Modal", href: "#modal", class: 'btn', data: {toggle: 'modal'} %>
 	<%= modal_dialog id: "modal",
 		header: { show_close: true, dismiss: 'modal', title: 'Modal header' },
 		body:   { content: 'This is the body' },
 		footer: { content: content_tag(:button, 'Save', class: 'btn') } %>
-	<% if false %>
-	<nav class="navbar navbar-default navbar-fixed-top">
-		<div class="container-fluid">
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="/">Eiscafé und Pizzeria</a>
-			</div>
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav">
-					<li><%= link_to "Browse Products", products_path %></li>
-					<li><%= link_to "Contact", new_contact_message_path %></li>
-					<% if admin_signed_in? %>
-						<li><%= link_to 'New Product', new_product_path %></li>
-						<li><%= link_to "Orders", orders_path %></li>
-					<% end %>
-				</ul>
-				<form class="navbar-form navbar-left" role="search">
-					<div class="form-group">
-						<input type="search" class="form-control" placeholder="Search">
-						<button type="submit" class="btn btn-default">Submit</button>
-					</div>
-				</form>
-				<div class="btn-toolbar navbar-right" role="toolbar" aria-label="bt">
-				<% if customer_signed_in? %>
-					<div class="btn-group" role="group" aria-label="sign">
-						<%= link_to "Signed in as #{current_customer.forename} #{current_customer.surname}", edit_customer_registration_path, :class => "btn btn-success navbar-btn" %>
-						<%= link_to "Sign Out", destroy_customer_session_path, { :class => "btn btn-danger navbar-btn", :method => :delete } %>
-					</div>
-				<% else %>
-					<div class="btn-group" role="group" aria-label="sign">
-						<%= link_to "Sign In", new_customer_session_path, class: "btn btn-primary navbar-btn" %>
-						<%= link_to "Sign Up", new_customer_registration_path, class: "btn btn-primary navbar-btn" %>
-					</div>
-				<% end %>
-				<div class="btn-group" role="group" aria-label="cart">
-				<div id="cart-text" class="navbar-btn">
-				<%= render 'layouts/cart_text' %>
-				</div>
-				</div>
-				</div>
-			</div>
-		</div>
-	</nav>
-<% end %>
+	<% end %>
 	<%= nav_bar fixed: :top, brand: "Eiscafé und Pizzeria", responsive: true, fluid: true do %>
 		<%= menu_group do %>
 			<%= menu_item "Browse Products", products_path %>
@@ -91,17 +43,7 @@
 			<%= submit_tag 'Search', class: "btn btn-default" %>
 		<% end %>
 		<div class="btn-toolbar pull-right" role="toolbar" aria-label="bt">
-			<% if customer_signed_in? %>
-				<div class="btn-group" role="group" aria-label="sign">
-					<%= link_to "Signed in as #{current_customer.forename} #{current_customer.surname}", edit_customer_registration_path, :class => "btn btn-success navbar-btn" %>
-					<%= link_to "Sign Out", destroy_customer_session_path, { :class => "btn btn-danger navbar-btn", :method => :delete } %>
-				</div>
-			<% else %>
-				<div class="btn-group" role="group" aria-label="sign">
-					<%= link_to "Sign In", new_customer_session_path, class: "btn btn-primary navbar-btn" %>
-					<%= link_to "Sign Up", new_customer_registration_path, class: "btn btn-primary navbar-btn" %>
-				</div>
-			<% end %>
+			<%= render 'devise/shared/login_and_registration_items' %>
 			<div class="btn-group" role="group" aria-label="cart">
 				<div id="cart-text" class="navbar-btn">
 					<%= render 'layouts/cart_text' %>
@@ -109,16 +51,14 @@
 			</div>
 		</div>
 	<% end %>
-	<div class="container-fluid">
-		<%= bootstrap_flash %>
-		<% if false %>
-			<p class="notice"><%= notice %></p>
-			<p class="alert"><%= alert %></p>
-		<% end %>
+	<%= content_tag :div, :class => "container-fluid" do
+		bootstrap_flash
+	end	%>
 
-		<hr/>
-	</div>
-	<%= yield %>
+
+	<main>
+		<%= yield %>
+	</main>
 
 	<footer>
 		<p>&copy; Stephan Wendt 2015</p>
