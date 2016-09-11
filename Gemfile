@@ -62,11 +62,13 @@ gem 'fog'
 gem 'figaro'
 
 #gem 'bootstrap-sass'
-gem 'twitter-bootstrap-rails', '>= 3.2.1.rc1'
-#gem 'twitter-bootstrap-rails'
+#gem 'twitter-bootstrap-rails', '>= 3.2.1.rc1'
+gem 'twitter-bootstrap-rails'
 gem 'devise'
 ##gem 'devise', '3.4.1'
 gem 'devise-i18n'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
 gem 'country_select'
+
+gem 'data-confirm-modal'
