@@ -2,8 +2,12 @@
 
 <%= render 'form' %>
 
+
+
+
+
 <p>
-<%= link_to 'Add Picture', pictures_path %>
+<%= link_to 'Add Picture', pictures_path, class: "btn btn-primary" %>
 </p>
 
 <% if session[:newProductImages] then %>
@@ -18,4 +22,4 @@
 	</table>
 <% end %>
 
-<%= link_to 'Back', products_path %>
+<%= link_to 'Back', products_path, class: "btn btn-primary" %>

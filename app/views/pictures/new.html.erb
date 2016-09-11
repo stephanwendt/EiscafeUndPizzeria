@@ -1,10 +1,14 @@
-<%= form_for :picture, html: { class: "form-horizontal", role: "form", multipart: true }, url: pictures_path do |f| %>
+<%= form_for :picture, html: { class: "form-horizontal center", role: "form", multipart: true }, url: pictures_path do |f| %>
 	<p>
-	<%= f.file_field :image, class: "form-control" %>
+	<div class="field form-group">
+		<div class="col-sm-10">
+			<%= f.file_field :image, accept: 'image/png,image/gif,image/jpeg', class: "form-control" %>
+		</div>
+	</div>
 	</p>
 	<div class="actions form-group">
 		<div class="col-sm-offset-2 col-sm-10">
-			<%= f.submit %>
+			<%= f.submit nil, class: "btn btn-primary" %>
 		</div>
 	</div>
 <% end %>

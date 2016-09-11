@@ -21,6 +21,7 @@ class ProductsController < ApplicationController
 	def new
 		#session[:newProductImages] = nil
 		@product = Product.new
+		@pictures = Picture.all
 	end
 
 	# GET /products/1/edit
@@ -31,16 +32,23 @@ class ProductsController < ApplicationController
 	def create
 		@product = Product.new(product_params)
 
+		if params["picture_ids"] then
+			params["picture_ids"].each do |picture_id|
+				picture = Picture.find_by_id(picture_id)
+				@product.pictures << picture
+			end
+			@product.save
+		end
+		if session[:newProductImages] then
+			session[:newProductImages].each do |id,quantity|
+				picture = Picture.find_by_id(id)
+				@product.pictures << picture
+			end
+			@product.save
+			session[:newProductImages] = nil
+		end
 
 		if @product.save
-			if session[:newProductImages] then
-				session[:newProductImages].each do |id,quantity|
-					picture = Picture.find_by_id(id)
-					@product.pictures << picture
-				end
-				@product.save
-				session[:newProductImages] = nil
-			end
 			redirect_to @product, notice: 'Product was successfully created.'
 		else
 			render 'new'

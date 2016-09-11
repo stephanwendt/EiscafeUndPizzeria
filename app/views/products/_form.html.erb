@@ -10,6 +10,7 @@
 			</ul>
 		</div>
 	<% end %>
+<div class="container">
 
 	<div class="field form-group">
 		<%= f.label :name, class: 'col-sm-2 control-label' %>
@@ -35,9 +36,32 @@
 			<%= f.text_field :price, class: "form-control" %>
 		</div>
 	</div>
+
+
+
+	<div id="" style="overflow-y:scroll; overflow-x:hidden; height:400px;">
+	<div class="row" >
+		<% @pictures.each do |picture| %>
+			<div class="col-sm-6 col-md-3">
+				<%= check_box_tag "picture_ids[]", picture.id, false, :id => "picture_ids_#{picture.id}" %>
+				<div class="thumbnail">
+					<div class="caption">
+						<%= picture.image %>
+						<%= image_tag(picture.image_url.to_s, size: "100x100") %>
+					</div>
+				</div>
+			</div>
+		<% end %>
+	</div>
+	</div>
+
+
+
+
 	<div class="actions form-group">
 		<div class="col-sm-offset-2 col-sm-10">
 			<%= f.submit nil, class: "btn btn-primary" %>
 		</div>
 	</div>
+</div>
 <% end %>
