@@ -28,7 +28,7 @@
 	<div class="thumbnail">
 		<% first_product_image = product.pictures.first %>
 		<% if first_product_image then %>
-			<%= link_to image_tag(first_product_image.image_url.to_s), product %>
+			<%= link_to image_tag(first_product_image.image_url.to_s, height: '200',), product %>
 		<% end %>
 		<div class="caption">
 			<h3><%= link_to product.name, product %></h3>

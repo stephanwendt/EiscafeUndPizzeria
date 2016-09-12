@@ -7,4 +7,9 @@
 	<% total += quantity * product.price %>
 	<% total_quantity += quantity %>
 <% end %>
-<%= link_to pluralize(total_quantity, "Item") + " in Cart ( #{number_to_currency total} )", shopping_cart_path, class: "btn btn-success" %>
+<% if total_quantity == 0 then %>
+	<% button_class = "btn btn-info" %>
+<% else %>
+	<% button_class = "btn btn-success" %>
+<% end %>
+<%= link_to pluralize(total_quantity, "Item") + " in Cart ( #{number_to_currency total} )", shopping_cart_path, class: button_class %>
