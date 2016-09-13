@@ -51,11 +51,11 @@ group :development do
 end
 
 group :production do
-	gem 'pg'
-	gem 'a9s_swift'
-	gem 'rails_12factor'
 end
 
+gem 'pg'
+gem 'rails_12factor'
+gem 'a9s_swift'
 
 gem 'carrierwave'
 gem 'fog'
