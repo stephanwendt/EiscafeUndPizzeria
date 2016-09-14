@@ -1,12 +1,6 @@
 <div class="container">
 	<h1>New Product</h1>
 
-	<%= render 'form' %>
-
-
-
-
-
 	<p>
 	<%= link_to 'Add Picture', pictures_path, class: "btn btn-primary" %>
 	</p>
@@ -22,6 +16,11 @@
 			<% end %>
 		</table>
 	<% end %>
+
+
+
+	<%= render 'form' %>
+
 
 	<%= link_to 'Back', products_path, class: "btn btn-primary" %>
 </div>
