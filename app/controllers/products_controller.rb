@@ -17,7 +17,7 @@ class ProductsController < ApplicationController
 
 	# GET /products/new
 	def new
-		session[:newProductImages] = nil
+		#session[:newProductImages] = nil
 		@product = Product.new
 		#@pictures = Picture.all
 	end
