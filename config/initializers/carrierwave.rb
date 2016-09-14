@@ -1,11 +1,11 @@
-#require 'carrierwave'
-#
-#if Rails.env.production?
-#	require 'a9s_swift'
-#
-#	BUCKET_NAME = "images"
-#	Anynines::Swift::Utility.configure_carrierwave(BUCKET_NAME,{fog_public: false}, "openstack")
-#end
+require 'carrierwave'
+
+if Rails.env.production?
+	require 'a9s_swift'
+
+	BUCKET_NAME = "images"
+	Anynines::Swift::Utility.configure_carrierwave(BUCKET_NAME,{fog_public: false}, "openstack")
+end
 
 #CarrierWave.configure do |config|
 #	config.fog_credentials = {

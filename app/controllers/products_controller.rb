@@ -1,8 +1,6 @@
 class ProductsController < ApplicationController
 	before_action :authenticate_admin!, except: [:index, :search, :show]
 	before_action :set_product, only: [:show, :edit, :update, :destroy]
-	#http_basic_authenticate_with name: "dhh", password: "secret",
-		#except: [:index, :show]
 
 	# GET /products
 	def index
@@ -19,13 +17,14 @@ class ProductsController < ApplicationController
 
 	# GET /products/new
 	def new
-		#session[:newProductImages] = nil
+		session[:newProductImages] = nil
 		@product = Product.new
-		@pictures = Picture.all
+		#@pictures = Picture.all
 	end
 
 	# GET /products/1/edit
 	def edit
+		#@pictures = Picture.all
 	end
 
 	# POST /products
