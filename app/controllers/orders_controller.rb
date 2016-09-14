@@ -1,8 +1,7 @@
 class OrdersController < ApplicationController
 	before_action :set_order, only: [:show, :edit, :update, :destroy]
-	before_action :authenticate_admin!
-	#before_action :authenticate_user!, only: [:order]
-	#http_basic_authenticate_with name: "dhh", password: "secret"
+	before_action :authenticate_admin!, except: [:new, :create]
+	before_action :authenticate_customer!, only: [:new, :create]
 
 	# GET /orders
 	def index

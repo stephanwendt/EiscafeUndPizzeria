@@ -1,5 +1,5 @@
 class ShoppingCartController < ApplicationController
-	before_action :authenticate_user!, only: [:order]
+	before_action :authenticate_customer!, only: [:order]
 	before_action :set_shopping_cart
 
 	def add
