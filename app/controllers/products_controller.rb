@@ -31,19 +31,18 @@ class ProductsController < ApplicationController
 	def create
 		@product = Product.new(product_params)
 
-		if params["picture_ids"] then
-			params["picture_ids"].each do |picture_id|
-				picture = Picture.find_by_id(picture_id)
-				@product.pictures << picture
-			end
-			@product.save
-		end
+		#if params["picture_ids"] then
+		#	params["picture_ids"].each do |picture_id|
+		#		picture = Picture.find_by_id(picture_id)
+		#		@product.pictures << picture
+		#	end
+		#	@product.save
+		#end
 		if session[:newProductImages] then
 			session[:newProductImages].each do |id,quantity|
 				picture = Picture.find_by_id(id)
 				@product.pictures << picture
 			end
-			@product.save
 			session[:newProductImages] = nil
 		end
 
@@ -56,7 +55,15 @@ class ProductsController < ApplicationController
 
 	# PATCH/PUT /products/1
 	def update
-		session[:newProductImages] = nil
+		if session[:newProductImages] then
+			session[:newProductImages].each do |id,quantity|
+				picture = Picture.find_by_id(id)
+				@product.pictures << picture
+			end
+			session[:newProductImages] = nil
+		end
+
+
 		if @product.update(product_params)
 			redirect_to @product, notice: 'Product was successfully updated.'
 		else

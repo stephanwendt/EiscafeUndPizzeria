@@ -1,35 +1,56 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
 * Ruby version
 
-* System dependencies
+2.3.1  
 
-* Configuration
+* Project creation
 
-* Database creation
-bin/rails generate devise Customer forename:string surname:string street:string city:string state:string zipcode:string country:string
-bin/rails generate devise:install
-bin/rails generate model Order order_date:datetime 'total:decimal{12,2}' customer:references
-bin/rails generate model OrderItem 'unit_price:decimal{12,2}' quantity:integer 'total_price:decimal{12,2}' comment:text order:references product:references
-bin/rails generate model Product name:string description:text available:integer 'price:decimal{12,2}'
-bin/rails generate model Picture image:string
+    rails new EiscafeUndPizzeria
+    bundle
+
+Devise functionality:  
 
 
-* Database initialization
+
+    bundle exec rails generate devise:install
+    bundle exec rails generate devise Customer forename:string surname:string street:string city:string state:string zipcode:string country:string telephone_number:string
+#Confirmable was activated in the migration
+    bundle exec rails generate devise Admin
+#Recoverable, Rememberable, Trackable was removed in the migration  
+#https://github.com/plataformatec/devise#configuring-multiple-models  
+
+    bundle exec rails generate devise:views -v registrations sessions
+
+
+
+    bundle exec rails generate model Product name:string description:text available:integer 'price:decimal{12,2}'
+    bundle exec rails generate model Order order_date:datetime 'total:decimal{12,2}' customer:references
+    bundle exec rails generate model OrderItem 'unit_price:decimal{12,2}' quantity:integer 'total_price:decimal{12,2}' comment:text order:references product:references
+    bundle exec rails generate model Picture image:string
+    
+    bundle exec rails generate scaffold ContactMessage message:text customer:references
+    
+    bundle exec rails generate mailer OrderMailer confirmation_mail_to_customer confirmation_mail_to_admins
+    bundle exec rails generate mailer ContactMailer confirmation_mail_to_customer contact_mail_to_responsible
+    
+    bundle exec rails generate controller shopping_cart index
+    
+    bundle exec rails generate controller products
+    
+    bundle exec rails generate controller orders
+    
+    bundle exec rails generate uploader Picture
+    
+    bundle exec rails generate migration create_join_table picture product
+    
+    bundle exec rails generate controller pictures
+    
+    bundle exec figaro install
+
 
 * How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+    bundle exec rake db:migrate RAILS_ENV=test
+    bundle exec rake test
 
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -25,17 +26,27 @@ ActiveRecord::Schema.define(version: 20151028045636) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.index ["email"], name: "index_admins_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
+
+  add_index "admins", ["email"], name: "index_admins_on_email", unique: true
+  add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+
+  create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
+    t.string   "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "ar_internal_metadata", ["key"], name: "sqlite_autoindex_ar_internal_metadata_1", unique: true
 
   create_table "contact_messages", force: :cascade do |t|
     t.text     "message"
     t.integer  "customer_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["customer_id"], name: "index_contact_messages_on_customer_id"
   end
+
+  add_index "contact_messages", ["customer_id"], name: "index_contact_messages_on_customer_id"
 
   create_table "customers", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -62,10 +73,11 @@ ActiveRecord::Schema.define(version: 20151028045636) do
     t.string   "telephone_number"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.index ["confirmation_token"], name: "index_customers_on_confirmation_token", unique: true
-    t.index ["email"], name: "index_customers_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
+
+  add_index "customers", ["confirmation_token"], name: "index_customers_on_confirmation_token", unique: true
+  add_index "customers", ["email"], name: "index_customers_on_email", unique: true
+  add_index "customers", ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
 
   create_table "order_items", force: :cascade do |t|
     t.decimal  "unit_price",  precision: 12, scale: 2
@@ -76,9 +88,10 @@ ActiveRecord::Schema.define(version: 20151028045636) do
     t.integer  "product_id"
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
-    t.index ["order_id"], name: "index_order_items_on_order_id"
-    t.index ["product_id"], name: "index_order_items_on_product_id"
   end
+
+  add_index "order_items", ["order_id"], name: "index_order_items_on_order_id"
+  add_index "order_items", ["product_id"], name: "index_order_items_on_product_id"
 
   create_table "orders", force: :cascade do |t|
     t.datetime "order_date"
@@ -86,8 +99,9 @@ ActiveRecord::Schema.define(version: 20151028045636) do
     t.integer  "customer_id"
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
-    t.index ["customer_id"], name: "index_orders_on_customer_id"
   end
+
+  add_index "orders", ["customer_id"], name: "index_orders_on_customer_id"
 
   create_table "pictures", force: :cascade do |t|
     t.string   "image"
