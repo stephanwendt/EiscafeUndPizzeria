@@ -28,8 +28,8 @@ class ContactMessagesController < ApplicationController
 
 		respond_to do |format|
 			if @contact_message.save
-				ContactMailer.confirmation_mail_to_customer(current_customer, contact_message).deliver_later
-				ContactMailer.contact_mail_to_responsible(current_customer, contact_message).deliver_later
+				ContactMailer.confirmation_mail_to_customer(current_customer, @contact_message).deliver_later
+				ContactMailer.contact_mail_to_responsible(current_customer, @contact_message).deliver_later
 				format.html { redirect_to @contact_message, notice: 'Contact message was successfully created.' }
 				format.json { render :show, status: :created, location: @contact_message }
 			else
