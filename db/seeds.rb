@@ -1,1 +1,1 @@
-Admin.create!(email: 'admin@example.com', password: 'admin', password_confirmation: 'admin')
+Admin.create!(email: 'admin@mailinator.com', password: 'admin', password_confirmation: 'admin')

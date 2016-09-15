@@ -7,7 +7,7 @@ class OrderMailer < ApplicationMailer
 	#
 	#   en.order_mailer.confirmation_mail_to_customer.subject
 	#
-	def confirmation_mail_to_customer(customer)
+	def confirmation_mail_to_customer(customer, order)
 		@customer = customer
 		customer_email_with_name = %("#{@customer.forename} #{@customer.surname}" <#{@customer.email}>)
 		@greeting = "Hi"
@@ -20,7 +20,7 @@ class OrderMailer < ApplicationMailer
 	#
 	#   en.order_mailer.confirmation_mail_to_admins.subject
 	#
-	def confirmation_mail_to_admins(customer)
+	def confirmation_mail_to_admins(customer, order)
 		@customer = customer
 		customer_email_with_name = %("#{@customer.forename} #{@customer.surname}" <#{@customer.email}>)
 		@greeting = "Hi"
