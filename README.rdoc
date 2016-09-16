@@ -14,11 +14,11 @@ Devise functionality:
 
 
     bundle exec rails generate devise:install
-    bundle exec rails generate devise Customer forename:string surname:string street:string city:string state:string zipcode:string country:string telephone_number:string
-#Confirmable was activated in the migration
-    bundle exec rails generate devise Admin
-#Recoverable, Rememberable, Trackable was removed in the migration  
-#https://github.com/plataformatec/devise#configuring-multiple-models  
+    bundle exec rails generate devise Customer forename:string surname:string street:string city:string state:string zipcode:string country:string telephone_number:string  
+Confirmable was activated in the migration  
+    bundle exec rails generate devise Admin  
+Recoverable, Rememberable, Trackable was removed in the migration  
+https://github.com/plataformatec/devise#configuring-multiple-models  
 
     bundle exec rails generate devise:views -v registrations sessions
 
@@ -48,7 +48,7 @@ Devise functionality:
     
     bundle exec figaro install
 
-	bundle exec rails g model Payment success:boolean authorization_code
+    bundle exec rails g model Payment success:boolean authorization_code
 
 
 * How to run the test suite
