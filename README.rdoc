@@ -48,6 +48,8 @@ Devise functionality:
     
     bundle exec figaro install
 
+	bundle exec rails g model Payment success:boolean authorization_code
+
 
 * How to run the test suite
 

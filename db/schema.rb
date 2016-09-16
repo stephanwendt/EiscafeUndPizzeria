@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151028045636) do
+ActiveRecord::Schema.define(version: 20160916001309) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -102,6 +102,16 @@ ActiveRecord::Schema.define(version: 20151028045636) do
   end
 
   add_index "orders", ["customer_id"], name: "index_orders_on_customer_id"
+
+  create_table "payments", force: :cascade do |t|
+    t.boolean  "success"
+    t.string   "authorization_code"
+    t.integer  "order_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "payments", ["order_id"], name: "index_payments_on_order_id"
 
   create_table "pictures", force: :cascade do |t|
     t.string   "image"
